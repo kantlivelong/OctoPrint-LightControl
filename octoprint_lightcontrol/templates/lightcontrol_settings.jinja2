@@ -1,0 +1,23 @@
+<form class="form-horizontal">
+    <h4>General</h4>
+    <div class="control-group">
+        <label class="control-label">GPIO Mode</label>
+        <div class="controls">
+            <select data-bind="value: settings.plugins.lightcontrol.GPIOMode">
+                <option value="BOARD">BOARD</option>
+                <option value="BCM">BCM</option>
+            </select>
+            <span class="help-inline">Pin number will be converted if an alternate mode has already been set by another plugin.</span>
+        </div>
+    </div>
+    <br />
+
+    <h4>Switching</h4>
+    <div class="control-group">
+        <label class="control-label">On/Off GPIO Pin</label>
+        <div class="controls">
+            <input type="number" min="0" class="input-mini" data-bind="value: settings.plugins.lightcontrol.onoffGPIOPin"> <input type="checkbox" data-bind="checked: settings.plugins.lightcontrol.invertonoffGPIOPin"> Invert
+        </div>
+    </div>
+    <br />
+</form>
