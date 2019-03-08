@@ -111,7 +111,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
         except (RuntimeError, ValueError) as e:
             self._logger.error(e)
 
-   def check_light_state(self):
+    def check_light_state(self):
         old_isLightOn = self.isLightOn
 
         self._logger.debug("Polling Light state...")
