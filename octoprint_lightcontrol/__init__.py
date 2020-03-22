@@ -106,7 +106,11 @@ class LightControl(octoprint.plugin.StartupPlugin,
         self._logger.info("Using GPIO for On/Off")
         self._logger.info("Configuring GPIO for pin %s" % self.onoffGPIOPin)
         try:
-            GPIO.setup(self._gpio_get_pin(self.onoffGPIOPin), GPIO.OUT)
+            if not self.invertonoffGPIOPin:
+                initial_pin_output=GPIO.LOW
+            else:
+                initial_pin_output=GPIO.HIGH
+            GPIO.setup(self._gpio_get_pin(self.onoffGPIOPin), GPIO.OUT, initial=initial_pin_output)
             self._configuredGPIOPins.append(self.onoffGPIOPin)
         except (RuntimeError, ValueError) as e:
             self._logger.error(e)
@@ -123,10 +127,15 @@ class LightControl(octoprint.plugin.StartupPlugin,
         self._logger.debug("Result: %s" % r)
 
         if r==1:
-            self.isLightOn = True
+            new_isLightOn = True
         elif r==0:
-            self.isLightOn = False
-        
+            new_isLightOn = False
+
+        if self.invertonoffGPIOPin:
+            new_isLightOn = not new_isLightOn
+
+        self.isLightOn = new_isLightOn
+
         self._logger.debug("isLightOn: %s" % self.isLightOn)
 
         self._plugin_manager.send_plugin_message(self._identifier, dict(isLightOn=self.isLightOn))
