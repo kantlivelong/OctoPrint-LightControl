@@ -6,7 +6,7 @@ import setuptools
 plugin_identifier = "lightcontrol"
 plugin_package = "octoprint_%s" % plugin_identifier
 plugin_name = "OctoPrint-LightControl"
-plugin_version = "0.1.1"
+plugin_version = "0.1.0"
 plugin_description = "Control light using a relay."
 plugin_author = "Shawn Bruce"
 plugin_author_email = "kantlivelong@gmail.com"

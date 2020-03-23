@@ -127,10 +127,15 @@ class LightControl(octoprint.plugin.StartupPlugin,
         self._logger.debug("Result: %s" % r)
 
         if r==1:
-            self.isLightOn = not self.invertonoffGPIOPin;
+            new_isLightOn = True
         elif r==0:
-            self.isLightOn = self.invertonoffGPIOPin;
-        
+            new_isLightOn = False
+
+        if self.invertonoffGPIOPin:
+            new_isLightOn = not new_isLightOn
+
+        self.isLightOn = new_isLightOn
+
         self._logger.debug("isLightOn: %s" % self.isLightOn)
 
         self._plugin_manager.send_plugin_message(self._identifier, dict(isLightOn=self.isLightOn))
